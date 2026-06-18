@@ -9,7 +9,7 @@ playwright==1.40.0
 
 # API Testing
 aiohttp==3.9.1
-requests==2.31.0
+requests==2.34.2
 
 # Database Testing
 psycopg2-binary==2.9.9
