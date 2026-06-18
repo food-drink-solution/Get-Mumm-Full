@@ -16,7 +16,7 @@ jobs:
         node-version: [20.19.0]
     
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -86,7 +86,7 @@ jobs:
     if: success()
     
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v2.0
