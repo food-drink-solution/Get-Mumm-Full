@@ -89,7 +89,7 @@ jobs:
       - uses: actions/checkout@v4
       
       - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@v2.0
+        uses: nwtgck/actions-netlify@v4.0
         with:
           publish-dir: './frontend/dist/public'
           production-branch: main
