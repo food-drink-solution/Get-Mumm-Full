@@ -5,7 +5,7 @@
   base = "dashboard"
   
   # Build command - Install dependencies and build Angular production
-  command = "npm install --force && npm run build"
+  command = "npm install && npm run build"
   
   # Publish directory where Angular outputs production build
   publish = "dist/dashboard"
