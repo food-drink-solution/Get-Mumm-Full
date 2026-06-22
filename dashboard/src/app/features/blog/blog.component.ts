@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, signal, ChangeDetectionStrategy, DestroyRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgIconComponent } from '@ng-icons/core';
+import { IconSvgComponent } from '../../shared/components/icon-svg.component';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
@@ -15,7 +15,7 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
   selector: 'app-blog',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, NgIconComponent, TranslatePipe, SkeletonComponent, EmptyStateComponent, ErrorStateComponent],
+  imports: [CommonModule, IconSvgComponent, TranslatePipe, SkeletonComponent, EmptyStateComponent, ErrorStateComponent],
   template: `
     <div class="space-y-6">
       <div class="flex items-center justify-between">
@@ -26,13 +26,13 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
           </p>
         </div>
         <button class="btn-secondary gap-2" (click)="load()" [attr.aria-label]="'COMMON.REFRESH' | translate">
-          <ng-icon name="lucideRefreshCw" size="14" />
+          <app-icon-svg name="lucideRefreshCw" size="14" />
         </button>
       </div>
 
       <div class="card p-4">
         <div class="relative w-full sm:w-80">
-          <ng-icon name="lucideSearch" size="15" class="absolute start-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+          <app-icon-svg name="lucideSearch" size="15" class="absolute start-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
           <input type="search" class="input ps-9"
                  [placeholder]="'BLOG.SEARCH_PLACEHOLDER' | translate"
                  [value]="search()" (input)="search$.next($any($event.target).value)"
@@ -59,17 +59,17 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
                        loading="lazy" decoding="async" />
                 } @else {
                   <div class="w-full h-full flex items-center justify-center">
-                    <ng-icon name="lucideNewspaper" size="40" class="text-gray-300 dark:text-gray-600" />
+                    <app-icon-svg name="lucideNewspaper" size="40" class="text-gray-300 dark:text-gray-600" />
                   </div>
                 }
               </div>
               <div class="p-4 flex flex-col flex-1">
                 <h3 class="font-semibold text-gray-900 dark:text-white text-sm line-clamp-2 mb-1.5" [title]="post.title">{{ post.title }}</h3>
                 <p class="text-xs text-gray-400 mb-2 flex items-center gap-1.5">
-                  <ng-icon name="lucideCalendar" size="11" />
+                  <app-icon-svg name="lucideCalendar" size="11" />
                   {{ post.publishedAt | date:'dd MMM yyyy' }}
                   <span class="opacity-40">·</span>
-                  <ng-icon name="lucideUser" size="11" />
+                  <app-icon-svg name="lucideUser" size="11" />
                   {{ post.author }}
                 </p>
                 <p class="text-xs text-gray-500 dark:text-gray-400 line-clamp-3 flex-1">{{ post.excerpt }}</p>

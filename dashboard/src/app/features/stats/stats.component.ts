@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, signal, ChangeDetectionStrategy, DestroyRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgIconComponent } from '@ng-icons/core';
+import { IconSvgComponent } from '../../shared/components/icon-svg.component';
 import { TranslatePipe } from '@ngx-translate/core';
 import { forkJoin } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -14,7 +14,7 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
   selector: 'app-stats',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, NgIconComponent, TranslatePipe, StatCardComponent, SkeletonComponent, ErrorStateComponent],
+  imports: [CommonModule, IconSvgComponent, TranslatePipe, StatCardComponent, SkeletonComponent, ErrorStateComponent],
   template: `
     <div class="space-y-7">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -23,7 +23,7 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
           <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">Platform-wide statistics and system insights</p>
         </div>
         <button class="btn-secondary self-start sm:self-auto gap-2" (click)="load()" [attr.aria-label]="'COMMON.REFRESH' | translate">
-          <ng-icon name="lucideRefreshCw" size="14" />
+          <app-icon-svg name="lucideRefreshCw" size="14" />
           {{ 'COMMON.REFRESH' | translate }}
         </button>
       </div>
@@ -45,13 +45,13 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
 
         <div class="card p-6">
           <div class="flex items-center gap-2 mb-6">
-            <ng-icon name="lucideBarChart2" size="16" class="text-gray-500" />
+            <app-icon-svg name="lucideBarChart2" size="16" class="text-gray-500" />
             <h3 class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest">{{ 'DASHBOARD.CONTENT_BREAKDOWN' | translate }}</h3>
           </div>
           <div class="space-y-5">
             @for (item of breakdown(); track item.labelKey) {
               <div class="flex items-center gap-4">
-                <ng-icon [name]="item.icon" size="16" [class]="item.textColor + ' flex-shrink-0'" />
+                <app-icon-svg [name]="item.icon" size="16" [class]="item.textColor + ' flex-shrink-0'" />
                 <div class="w-24 sm:w-32 text-sm text-gray-600 dark:text-gray-400 truncate flex-shrink-0">{{ item.labelKey | translate }}</div>
                 <div class="flex-1 bg-gray-100 dark:bg-gray-800 rounded-full h-2"
                      role="progressbar" [attr.aria-valuenow]="item.pct | number:'1.0-0'" aria-valuemin="0" aria-valuemax="100">
@@ -67,13 +67,13 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
         @if (health()) {
           <div class="card p-6">
             <div class="flex items-center gap-2 mb-5">
-              <ng-icon name="lucideActivity" size="16" class="text-gray-500" />
+              <app-icon-svg name="lucideActivity" size="16" class="text-gray-500" />
               <h3 class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest">{{ 'DASHBOARD.SYSTEM_HEALTH' | translate }}</h3>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <div class="rounded-2xl p-5 flex flex-col items-center text-center"
                    [class]="health()!.status === 'Healthy' ? 'bg-green-50 dark:bg-green-900/10' : 'bg-red-50 dark:bg-red-900/10'">
-                <ng-icon [name]="health()!.status === 'Healthy' ? 'lucideCheckCircle2' : 'lucideXCircle'" size="32"
+                <app-icon-svg [name]="health()!.status === 'Healthy' ? 'lucideCheckCircle2' : 'lucideXCircle'" size="32"
                          [class]="health()!.status === 'Healthy' ? 'text-green-500 mb-2' : 'text-red-500 mb-2'" />
                 <p class="text-xs font-semibold uppercase tracking-wide mb-1"
                    [class]="health()!.status === 'Healthy' ? 'text-green-600 dark:text-green-400' : 'text-red-600'">
@@ -86,7 +86,7 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
               </div>
               <div class="rounded-2xl p-5 flex flex-col items-center text-center"
                    [class]="health()!.databaseConnected ? 'bg-green-50 dark:bg-green-900/10' : 'bg-red-50 dark:bg-red-900/10'">
-                <ng-icon [name]="health()!.databaseConnected ? 'lucideDatabase' : 'lucideXCircle'" size="32"
+                <app-icon-svg [name]="health()!.databaseConnected ? 'lucideDatabase' : 'lucideXCircle'" size="32"
                          [class]="health()!.databaseConnected ? 'text-green-500 mb-2' : 'text-red-500 mb-2'" />
                 <p class="text-xs font-semibold uppercase tracking-wide mb-1"
                    [class]="health()!.databaseConnected ? 'text-green-600 dark:text-green-400' : 'text-red-600'">
@@ -98,7 +98,7 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
                 </p>
               </div>
               <div class="rounded-2xl p-5 flex flex-col items-center text-center bg-blue-50 dark:bg-blue-900/10 sm:col-span-2">
-                <ng-icon name="lucideCalendar" size="32" class="text-blue-500 mb-2" />
+                <app-icon-svg name="lucideCalendar" size="32" class="text-blue-500 mb-2" />
                 <p class="text-xs font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-400 mb-1">{{ 'DASHBOARD.LAST_CHECK' | translate }}</p>
                 <p class="text-sm font-medium text-blue-800 dark:text-blue-300">{{ health()!.timestamp | date:'HH:mm:ss, dd MMM yyyy' }}</p>
                 <p class="text-xs text-blue-500 dark:text-blue-400 mt-1">{{ health()!.message }}</p>

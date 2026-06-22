@@ -1,6 +1,5 @@
 import { Component, inject, OnInit, signal, ChangeDetectionStrategy, DestroyRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgIconComponent } from '@ng-icons/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ApiService } from '../../core/services/api.service';
@@ -8,12 +7,13 @@ import { TestimonialDto } from '../../models';
 import { SkeletonComponent } from '../../shared/components/skeleton.component';
 import { EmptyStateComponent } from '../../shared/components/empty-state.component';
 import { ErrorStateComponent } from '../../shared/components/error-state.component';
+import { IconSvgComponent } from '../../shared/components/icon-svg.component';
 
 @Component({
   selector: 'app-testimonials',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, NgIconComponent, TranslatePipe, SkeletonComponent, EmptyStateComponent, ErrorStateComponent],
+  imports: [CommonModule, IconSvgComponent, TranslatePipe, SkeletonComponent, EmptyStateComponent, ErrorStateComponent],
   template: `
     <div class="space-y-6">
       <div class="flex items-center justify-between">
@@ -24,7 +24,7 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
           </p>
         </div>
         <button class="btn-secondary gap-2" (click)="load()" [attr.aria-label]="'COMMON.REFRESH' | translate">
-          <ng-icon name="lucideRefreshCw" size="14" />
+          <app-icon-svg name="lucideRefreshCw" size="14" />
         </button>
       </div>
 
@@ -35,7 +35,7 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
             <div>
               <div class="flex items-center gap-0.5 text-amber-400">
                 @for (filled of starFill(); track $index) {
-                  <ng-icon name="lucideStar" size="16" [class]="filled ? 'text-amber-400' : 'text-gray-200 dark:text-gray-700'" />
+                  <app-icon-svg name="lucideStar" size="16" [class]="filled ? 'text-amber-400' : 'text-gray-200 dark:text-gray-700'" />
                 }
               </div>
               <p class="text-xs text-gray-400 mt-0.5">{{ 'TESTIMONIALS.AVERAGE_RATING' | translate }}</p>
@@ -69,14 +69,14 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
                   <div class="min-w-0">
                     <p class="text-sm font-semibold text-gray-800 dark:text-white truncate">{{ t.customerName }}</p>
                     <p class="text-xs text-gray-400 flex items-center gap-1">
-                      <ng-icon name="lucideCalendar" size="10" />
+                      <app-icon-svg name="lucideCalendar" size="10" />
                       {{ t.createdAt | date:'dd MMM yyyy' }}
                     </p>
                   </div>
                 </div>
                 <div class="flex items-center gap-0.5 flex-shrink-0" [attr.aria-label]="t.rating + ' / 5'">
                   @for (i of [1,2,3,4,5]; track i) {
-                    <ng-icon name="lucideStar" size="13" [class]="i <= t.rating ? 'text-amber-400' : 'text-gray-200 dark:text-gray-700'" />
+                    <app-icon-svg name="lucideStar" size="13" [class]="i <= t.rating ? 'text-amber-400' : 'text-gray-200 dark:text-gray-700'" />
                   }
                 </div>
               </div>

@@ -1,6 +1,6 @@
 import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgIconComponent } from '@ng-icons/core';
+import { IconSvgComponent } from '../../shared/components/icon-svg.component';
 import { TranslatePipe } from '@ngx-translate/core';
 import { ThemeService } from '../../core/services/theme.service';
 import { AuthService } from '../../core/services/auth.service';
@@ -10,7 +10,7 @@ import { LanguageService } from '../../core/services/language.service';
   selector: 'app-settings',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, NgIconComponent, TranslatePipe],
+  imports: [CommonModule, IconSvgComponent, TranslatePipe],
   template: `
     <div class="space-y-6 max-w-2xl">
       <div>
@@ -21,7 +21,7 @@ import { LanguageService } from '../../core/services/language.service';
       <!-- Profile -->
       <div class="card p-6">
         <div class="flex items-center gap-2 mb-5">
-          <ng-icon name="lucideUser" size="15" class="text-gray-500" />
+          <app-icon-svg name="lucideUser" size="15" class="text-gray-500" />
           <h3 class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest">{{ 'SETTINGS.PROFILE' | translate }}</h3>
         </div>
         <div class="flex items-center gap-4 mb-5">
@@ -34,7 +34,7 @@ import { LanguageService } from '../../core/services/language.service';
           </div>
         </div>
         <div class="flex items-start gap-2.5 p-4 bg-amber-50 dark:bg-amber-900/10 border border-amber-100 dark:border-amber-800 rounded-xl text-sm text-amber-700 dark:text-amber-400">
-          <ng-icon name="lucideInfo" size="15" class="flex-shrink-0 mt-0.5" />
+          <app-icon-svg name="lucideInfo" size="15" class="flex-shrink-0 mt-0.5" />
           {{ 'SETTINGS.PROFILE_NOTE' | translate }}
         </div>
       </div>
@@ -42,12 +42,12 @@ import { LanguageService } from '../../core/services/language.service';
       <!-- Language -->
       <div class="card p-6">
         <div class="flex items-center gap-2 mb-5">
-          <ng-icon name="lucideLanguages" size="15" class="text-gray-500" />
+          <app-icon-svg name="lucideLanguages" size="15" class="text-gray-500" />
           <h3 class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest">Language / اللغة</h3>
         </div>
         <div class="flex items-center justify-between gap-4">
           <div class="flex items-center gap-3">
-            <ng-icon name="lucideLanguages" size="20" class="text-blue-500" />
+            <app-icon-svg name="lucideLanguages" size="20" class="text-blue-500" />
             <div>
               <p class="text-sm font-medium text-gray-700 dark:text-gray-300">
                 {{ lang.lang() === 'en' ? 'English' : 'العربية' }}
@@ -60,7 +60,7 @@ import { LanguageService } from '../../core/services/language.service';
           <button (click)="lang.toggle()"
                   class="flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-200 dark:border-gray-700
                          text-sm font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-            <ng-icon name="lucideLanguages" size="15" />
+            <app-icon-svg name="lucideLanguages" size="15" />
             {{ 'LANG.CURRENT' | translate }}
           </button>
         </div>
@@ -69,12 +69,12 @@ import { LanguageService } from '../../core/services/language.service';
       <!-- Appearance -->
       <div class="card p-6">
         <div class="flex items-center gap-2 mb-5">
-          <ng-icon name="lucideSun" size="15" class="text-gray-500" />
+          <app-icon-svg name="lucideSun" size="15" class="text-gray-500" />
           <h3 class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest">{{ 'SETTINGS.APPEARANCE' | translate }}</h3>
         </div>
         <div class="flex items-center justify-between gap-4">
           <div class="flex items-center gap-3">
-            <ng-icon [name]="theme.isDark() ? 'lucideMoon' : 'lucideSun'" size="20"
+            <app-icon-svg [name]="theme.isDark() ? 'lucideMoon' : 'lucideSun'" size="20"
                      [class]="theme.isDark() ? 'text-indigo-500' : 'text-amber-500'" />
             <div>
               <p class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ 'COMMON.DARK_MODE' | translate }}</p>
@@ -94,7 +94,7 @@ import { LanguageService } from '../../core/services/language.service';
       <!-- Backend Info -->
       <div class="card p-6">
         <div class="flex items-center gap-2 mb-5">
-          <ng-icon name="lucideServer" size="15" class="text-gray-500" />
+          <app-icon-svg name="lucideServer" size="15" class="text-gray-500" />
           <h3 class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest">{{ 'SETTINGS.BACKEND' | translate }}</h3>
         </div>
         <div class="space-y-0">
@@ -102,7 +102,7 @@ import { LanguageService } from '../../core/services/language.service';
             <div class="flex items-center justify-between py-3"
                  [class.border-b]="!last" [class.border-gray-50]="!last" [class.dark:border-gray-800]="!last">
               <div class="flex items-center gap-2">
-                <ng-icon [name]="row.icon" size="13" class="text-gray-400" />
+                <app-icon-svg [name]="row.icon" size="13" class="text-gray-400" />
                 <span class="text-sm text-gray-500 dark:text-gray-400">{{ row.labelKey | translate }}</span>
               </div>
               <span class="text-sm font-medium text-gray-700 dark:text-gray-300 font-mono">{{ row.value }}</span>
@@ -114,7 +114,7 @@ import { LanguageService } from '../../core/services/language.service';
       <!-- Danger -->
       <div class="card p-6 border-red-100 dark:border-red-900/30">
         <div class="flex items-center gap-2 mb-5">
-          <ng-icon name="lucideShield" size="15" class="text-red-500" />
+          <app-icon-svg name="lucideShield" size="15" class="text-red-500" />
           <h3 class="text-xs font-semibold text-red-500 uppercase tracking-widest">{{ 'SETTINGS.DANGER' | translate }}</h3>
         </div>
         <div class="flex items-center justify-between gap-4">
@@ -123,7 +123,7 @@ import { LanguageService } from '../../core/services/language.service';
             <p class="text-xs text-gray-400 mt-0.5">{{ 'SETTINGS.SIGN_OUT_DESC' | translate }}</p>
           </div>
           <button class="btn-danger gap-2 flex-shrink-0" (click)="auth.logout()">
-            <ng-icon name="lucideLogOut" size="14" />
+            <app-icon-svg name="lucideLogOut" size="14" />
             {{ 'COMMON.SIGN_OUT' | translate }}
           </button>
         </div>

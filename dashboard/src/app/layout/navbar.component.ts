@@ -1,15 +1,15 @@
 import { Component, inject, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { NgIconComponent } from '@ng-icons/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { ThemeService } from '../core/services/theme.service';
 import { AuthService } from '../core/services/auth.service';
 import { LanguageService } from '../core/services/language.service';
+import { IconSvgComponent } from '../shared/components/icon-svg.component';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgIconComponent, TranslatePipe],
+  imports: [IconSvgComponent, TranslatePipe],
   template: `
     <header class="h-14 md:h-16 bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800
                    flex items-center px-4 md:px-6 gap-3 flex-shrink-0 sticky top-0 z-10">
@@ -17,7 +17,7 @@ import { LanguageService } from '../core/services/language.service';
       <!-- Hamburger -->
       <button class="lg:hidden p-2 rounded-xl text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               (click)="menuOpen.emit()" aria-label="Open navigation" aria-controls="main-sidebar">
-        <ng-icon name="lucideMenu" size="20" />
+        <app-icon-svg name="lucideMenu" size="20" />
       </button>
 
       <!-- Mobile brand -->
@@ -41,7 +41,7 @@ import { LanguageService } from '../core/services/language.service';
                        text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800
                        border border-gray-200 dark:border-gray-700 transition-colors"
                 [attr.aria-label]="'LANG.SWITCH_LABEL' | translate">
-          <ng-icon name="lucideLanguages" size="15" />
+          <app-icon-svg name="lucideLanguages" size="15" />
           <span class="text-xs tracking-wide">{{ 'LANG.CURRENT' | translate }}</span>
         </button>
 
@@ -50,9 +50,9 @@ import { LanguageService } from '../core/services/language.service';
                 class="p-2 rounded-xl text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors ms-1"
                 [attr.aria-label]="theme.isDark() ? ('COMMON.DARK_MODE_ON' | translate) : ('COMMON.DARK_MODE_OFF' | translate)">
           @if (theme.isDark()) {
-            <ng-icon name="lucideSun" size="18" />
+            <app-icon-svg name="lucideSun" size="18" />
           } @else {
-            <ng-icon name="lucideMoon" size="18" />
+            <app-icon-svg name="lucideMoon" size="18" />
           }
         </button>
 

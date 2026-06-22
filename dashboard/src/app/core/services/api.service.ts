@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CacheService } from './cache.service';
+import { EnvironmentService } from './environment.service';
 import {
   ListCategoriesResponse, ListMenuItemsResponse, GetMenuItemResponse,
   GetFeaturedItemsResponse, ListChefsResponse, GetChefResponse,
@@ -21,9 +22,11 @@ const TTL = {
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
-  private base = '/api';
+  private base: string;
 
-  constructor(private http: HttpClient, private cache: CacheService) {}
+  constructor(private http: HttpClient, private cache: CacheService, private env: EnvironmentService) {
+    this.base = `${this.env.getApiUrl()}/api`;
+  }
 
   /* ── Stats ── */
   getStats(): Observable<StatsDto> {

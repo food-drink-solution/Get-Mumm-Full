@@ -1,7 +1,6 @@
 import { Component, inject, OnInit, signal, ChangeDetectionStrategy, DestroyRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NgIconComponent } from '@ng-icons/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ApiService } from '../../core/services/api.service';
@@ -10,12 +9,13 @@ import { SubscriptionDto, CreateSubscriptionRequest, UpdateSubscriptionRequest }
 import { SkeletonComponent } from '../../shared/components/skeleton.component';
 import { EmptyStateComponent } from '../../shared/components/empty-state.component';
 import { ErrorStateComponent } from '../../shared/components/error-state.component';
+import { IconSvgComponent } from '../../shared/components/icon-svg.component';
 
 @Component({
   selector: 'app-subscriptions',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, FormsModule, NgIconComponent, TranslatePipe, SkeletonComponent, EmptyStateComponent, ErrorStateComponent],
+  imports: [CommonModule, FormsModule, IconSvgComponent, TranslatePipe, SkeletonComponent, EmptyStateComponent, ErrorStateComponent],
   template: `
     <div class="space-y-6">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -27,9 +27,9 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
         </div>
         <button class="btn-primary self-start sm:self-auto gap-2" (click)="toggleCreate()">
           @if (showCreate()) {
-            <ng-icon name="lucideX" size="14" /> {{ 'COMMON.CANCEL' | translate }}
+            <app-icon-svg name="lucideX" size="14" /> {{ 'COMMON.CANCEL' | translate }}
           } @else {
-            <ng-icon name="lucidePlus" size="14" /> {{ 'SUBSCRIPTIONS.NEW' | translate }}
+            <app-icon-svg name="lucidePlus" size="14" /> {{ 'SUBSCRIPTIONS.NEW' | translate }}
           }
         </button>
       </div>
@@ -37,7 +37,7 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
       @if (showCreate()) {
         <div class="card p-5 border-primary-200 dark:border-primary-800">
           <h3 class="text-sm font-semibold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
-            <ng-icon name="lucidePlus" size="14" class="text-primary-500" />
+            <app-icon-svg name="lucidePlus" size="14" class="text-primary-500" />
             {{ 'SUBSCRIPTIONS.NEW' | translate }}
           </h3>
           <form (ngSubmit)="create()" #f="ngForm" novalidate>
@@ -66,8 +66,8 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
             </div>
             <div class="flex gap-3">
               <button type="submit" class="btn-primary gap-2" [disabled]="saving() || !f.valid">
-                @if (saving()) { <ng-icon name="lucideLoader" size="14" class="animate-spin" /> {{ 'COMMON.SAVING' | translate }} }
-                @else { <ng-icon name="lucidePlus" size="14" /> {{ 'COMMON.CREATE' | translate }} }
+                @if (saving()) { <app-icon-svg name="lucideLoader" [spin]="true" size="14" /> {{ 'COMMON.SAVING' | translate }} }
+                @else { <app-icon-svg name="lucidePlus" size="14" /> {{ 'COMMON.CREATE' | translate }} }
               </button>
               <button type="button" class="btn-secondary" (click)="showCreate.set(false)">{{ 'COMMON.CANCEL' | translate }}</button>
             </div>
@@ -78,7 +78,7 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
       @if (editingSub()) {
         <div class="card p-5 border-blue-200 dark:border-blue-800">
           <h3 class="text-sm font-semibold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
-            <ng-icon name="lucidePencil" size="14" class="text-blue-500" />
+            <app-icon-svg name="lucidePencil" size="14" class="text-blue-500" />
             {{ 'SUBSCRIPTIONS.EDIT' | translate }}
             <code class="text-xs font-mono text-gray-400 ms-auto">{{ editingSub()!.id.slice(0,8) }}…</code>
           </h3>
@@ -106,8 +106,8 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
             </div>
             <div class="flex gap-3">
               <button type="submit" class="btn-primary gap-2" [disabled]="saving()">
-                @if (saving()) { <ng-icon name="lucideLoader" size="14" class="animate-spin" /> {{ 'COMMON.SAVING' | translate }} }
-                @else { <ng-icon name="lucideSave" size="14" /> {{ 'COMMON.SAVE' | translate }} }
+                @if (saving()) { <app-icon-svg name="lucideLoader" [spin]="true" size="14" /> {{ 'COMMON.SAVING' | translate }} }
+                @else { <app-icon-svg name="lucideSave" size="14" /> {{ 'COMMON.SAVE' | translate }} }
               </button>
               <button type="button" class="btn-secondary" (click)="cancelEdit()">{{ 'COMMON.CANCEL' | translate }}</button>
             </div>
@@ -155,11 +155,11 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
                       <div class="flex items-center gap-1 justify-end">
                         <button class="p-1.5 rounded-lg text-gray-400 hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/10 transition-colors"
                                 (click)="startEdit(sub)" [attr.aria-label]="'COMMON.EDIT' | translate">
-                          <ng-icon name="lucidePencil" size="13" />
+                          <app-icon-svg name="lucidePencil" size="13" />
                         </button>
                         <button class="p-1.5 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors"
                                 (click)="deleteSub(sub.id)" [attr.aria-label]="'COMMON.DELETE' | translate">
-                          <ng-icon name="lucideTrash2" size="13" />
+                          <app-icon-svg name="lucideTrash2" size="13" />
                         </button>
                       </div>
                     </td>
@@ -184,15 +184,15 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
                 </div>
               </div>
               <div class="grid grid-cols-2 gap-2 text-xs text-gray-500 mb-3">
-                <div class="flex items-center gap-1"><ng-icon name="lucideCalendar" size="11" /> {{ sub.startDate | date:'dd MMM yyyy' }}</div>
-                <div class="flex items-center gap-1"><ng-icon name="lucideCalendar" size="11" /> {{ sub.endDate | date:'dd MMM yyyy' }}</div>
+                <div class="flex items-center gap-1"><app-icon-svg name="lucideCalendar" size="11" /> {{ sub.startDate | date:'dd MMM yyyy' }}</div>
+                <div class="flex items-center gap-1"><app-icon-svg name="lucideCalendar" size="11" /> {{ sub.endDate | date:'dd MMM yyyy' }}</div>
               </div>
               <div class="flex gap-2">
                 <button class="btn-secondary text-xs py-1.5 flex-1 justify-center gap-1.5" (click)="startEdit(sub)">
-                  <ng-icon name="lucidePencil" size="12" /> {{ 'COMMON.EDIT' | translate }}
+                  <app-icon-svg name="lucidePencil" size="12" /> {{ 'COMMON.EDIT' | translate }}
                 </button>
                 <button class="btn-danger text-xs py-1.5 flex-1 justify-center gap-1.5" (click)="deleteSub(sub.id)">
-                  <ng-icon name="lucideTrash2" size="12" /> {{ 'COMMON.DELETE' | translate }}
+                  <app-icon-svg name="lucideTrash2" size="12" /> {{ 'COMMON.DELETE' | translate }}
                 </button>
               </div>
             </div>

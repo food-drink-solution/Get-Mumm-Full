@@ -1,17 +1,17 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgIconComponent } from '@ng-icons/core';
+import { IconSvgComponent } from './icon-svg.component';
 
 @Component({
   selector: 'app-stat-card',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, NgIconComponent],
+  imports: [CommonModule, IconSvgComponent],
   template: `
     <div class="card p-4 md:p-5 flex items-center gap-4 hover:shadow-md transition-shadow"
          role="region" [attr.aria-label]="label + ': ' + value">
       <div [class]="iconBg + ' w-11 h-11 md:w-12 md:h-12 rounded-xl flex items-center justify-center flex-shrink-0'">
-        <ng-icon [name]="iconName" size="22" [class]="iconColor" />
+        <app-icon-svg [name]="iconName" size="22" [class]="iconColor" />
       </div>
       <div class="min-w-0">
         <p class="text-xs md:text-sm text-gray-500 dark:text-gray-400 font-medium truncate">{{ label }}</p>

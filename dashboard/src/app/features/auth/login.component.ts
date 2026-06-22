@@ -1,7 +1,7 @@
 import { Component, inject, signal, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NgIconComponent } from '@ng-icons/core';
+import { IconSvgComponent } from '../../shared/components/icon-svg.component';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
@@ -11,7 +11,7 @@ import { LanguageService } from '../../core/services/language.service';
   selector: 'app-login',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, FormsModule, NgIconComponent, TranslatePipe],
+  imports: [CommonModule, FormsModule, IconSvgComponent, TranslatePipe],
   template: `
     <div class="min-h-screen bg-gradient-to-br from-mumm-orange to-amber-700 flex items-center justify-center p-4">
       <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-md p-8">
@@ -29,7 +29,7 @@ import { LanguageService } from '../../core/services/language.service';
                   class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold
                          text-gray-500 hover:text-gray-700 border border-gray-200 hover:border-gray-300
                          dark:text-gray-400 dark:border-gray-700 dark:hover:border-gray-600 transition-colors">
-            <ng-icon name="lucideLanguages" size="13" />
+            <app-icon-svg name="lucideLanguages" size="13" />
             {{ 'LANG.CURRENT' | translate }}
           </button>
         </div>
@@ -49,14 +49,14 @@ import { LanguageService } from '../../core/services/language.service';
 
           @if (error()) {
             <div class="mb-4 flex items-start gap-2 px-4 py-3 bg-red-50 text-red-700 rounded-xl text-sm border border-red-100" role="alert">
-              <ng-icon name="lucideAlertTriangle" size="14" class="flex-shrink-0 mt-0.5" />
+              <app-icon-svg name="lucideAlertTriangle" size="14" class="flex-shrink-0 mt-0.5" />
               {{ error() }}
             </div>
           }
 
           <button type="submit" class="btn-primary w-full justify-center py-3 text-base gap-2" [disabled]="loading()">
             @if (loading()) {
-              <ng-icon name="lucideLoader" size="16" class="animate-spin" />
+              <app-icon-svg name="lucideLoader" [spin]="true" size="16" />
               {{ 'AUTH.SIGNING_IN' | translate }}
             } @else {
               {{ 'AUTH.SIGN_IN' | translate }}

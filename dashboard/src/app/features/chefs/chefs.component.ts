@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, signal, ChangeDetectionStrategy, DestroyRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgIconComponent } from '@ng-icons/core';
+import { IconSvgComponent } from '../../shared/components/icon-svg.component';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
@@ -15,7 +15,7 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
   selector: 'app-chefs',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, NgIconComponent, TranslatePipe, SkeletonComponent, EmptyStateComponent, ErrorStateComponent],
+  imports: [CommonModule, IconSvgComponent, TranslatePipe, SkeletonComponent, EmptyStateComponent, ErrorStateComponent],
   template: `
     <div class="space-y-6">
       <div class="flex items-center justify-between">
@@ -26,13 +26,13 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
           </p>
         </div>
         <button class="btn-secondary gap-2" (click)="load()" [attr.aria-label]="'COMMON.REFRESH' | translate">
-          <ng-icon name="lucideRefreshCw" size="14" />
+          <app-icon-svg name="lucideRefreshCw" size="14" />
         </button>
       </div>
 
       <div class="card p-4">
         <div class="relative w-full sm:w-80">
-          <ng-icon name="lucideSearch" size="15" class="absolute start-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+          <app-icon-svg name="lucideSearch" size="15" class="absolute start-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
           <input type="search" class="input ps-9"
                  [placeholder]="'CHEFS.SEARCH_PLACEHOLDER' | translate"
                  [value]="search()" (input)="search$.next($any($event.target).value)"
@@ -58,7 +58,7 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
                   <img [src]="chef.imageUrl" [alt]="chef.name" class="w-full h-full object-cover" loading="lazy" decoding="async" />
                 } @else {
                   <div class="w-full h-full flex items-center justify-center">
-                    <ng-icon name="lucideChefHat" size="32" class="text-primary-400" />
+                    <app-icon-svg name="lucideChefHat" size="32" class="text-primary-400" />
                   </div>
                 }
               </div>
@@ -66,10 +66,10 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
               <p class="text-xs text-gray-400 mb-3" dir="rtl">{{ chef.nameAr }}</p>
               <div class="flex items-center justify-center gap-2 mb-3 flex-wrap">
                 <span class="badge bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 flex items-center gap-1">
-                  <ng-icon name="lucideStar" size="11" /> {{ chef.rating | number:'1.1-1' }}
+                  <app-icon-svg name="lucideStar" size="11" /> {{ chef.rating | number:'1.1-1' }}
                 </span>
                 <span class="badge bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 flex items-center gap-1">
-                  <ng-icon name="lucideUtensils" size="11" /> {{ chef.itemCount }} {{ 'CHEFS.DISHES' | translate }}
+                  <app-icon-svg name="lucideUtensils" size="11" /> {{ chef.itemCount }} {{ 'CHEFS.DISHES' | translate }}
                 </span>
               </div>
               <p class="text-xs text-gray-500 dark:text-gray-400 line-clamp-3 mb-3">{{ chef.bio }}</p>

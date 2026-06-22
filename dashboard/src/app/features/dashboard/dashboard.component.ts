@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal, ChangeDetectionStrategy, DestroyRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { NgIconComponent } from '@ng-icons/core';
+import { IconSvgComponent } from '../../shared/components/icon-svg.component';
 import { TranslatePipe } from '@ngx-translate/core';
 import { forkJoin } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -15,7 +15,7 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
   selector: 'app-dashboard',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, RouterLink, NgIconComponent, TranslatePipe, StatCardComponent, SkeletonComponent, ErrorStateComponent],
+  imports: [CommonModule, RouterLink, IconSvgComponent, TranslatePipe, StatCardComponent, SkeletonComponent, ErrorStateComponent],
   template: `
     <div class="space-y-7">
 
@@ -30,7 +30,7 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
           </p>
         </div>
         <button class="btn-secondary self-start sm:self-auto gap-2" (click)="load()" [attr.aria-label]="'COMMON.REFRESH' | translate">
-          <ng-icon name="lucideRefreshCw" size="14" />
+          <app-icon-svg name="lucideRefreshCw" size="14" />
           {{ 'COMMON.REFRESH' | translate }}
         </button>
       </div>
@@ -60,7 +60,7 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
           <!-- System Health -->
           <div class="card p-6" role="region" [attr.aria-label]="'DASHBOARD.SYSTEM_HEALTH' | translate">
             <div class="flex items-center gap-2 mb-5">
-              <ng-icon name="lucideActivity" size="16" class="text-gray-500" />
+              <app-icon-svg name="lucideActivity" size="16" class="text-gray-500" />
               <h3 class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest">
                 {{ 'DASHBOARD.SYSTEM_HEALTH' | translate }}
               </h3>
@@ -69,7 +69,7 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
               <div class="space-y-1">
                 <div class="flex items-center justify-between py-3 border-b border-gray-50 dark:border-gray-800">
                   <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                    <ng-icon name="lucideServer" size="14" class="opacity-60" />
+                    <app-icon-svg name="lucideServer" size="14" class="opacity-60" />
                     {{ 'DASHBOARD.API_STATUS' | translate }}
                   </div>
                   <span class="badge font-medium text-xs"
@@ -81,7 +81,7 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
                 </div>
                 <div class="flex items-center justify-between py-3 border-b border-gray-50 dark:border-gray-800">
                   <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                    <ng-icon name="lucideDatabase" size="14" class="opacity-60" />
+                    <app-icon-svg name="lucideDatabase" size="14" class="opacity-60" />
                     {{ 'DASHBOARD.DATABASE' | translate }}
                   </div>
                   <span class="badge font-medium text-xs"
@@ -93,7 +93,7 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
                 </div>
                 <div class="flex items-center justify-between py-3">
                   <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                    <ng-icon name="lucideCalendar" size="14" class="opacity-60" />
+                    <app-icon-svg name="lucideCalendar" size="14" class="opacity-60" />
                     {{ 'DASHBOARD.LAST_CHECK' | translate }}
                   </div>
                   <span class="text-xs text-gray-500 dark:text-gray-400 font-mono">
@@ -109,7 +109,7 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
           <!-- Content Breakdown -->
           <div class="card p-6" role="region" [attr.aria-label]="'DASHBOARD.CONTENT_BREAKDOWN' | translate">
             <div class="flex items-center gap-2 mb-5">
-              <ng-icon name="lucideBarChart2" size="16" class="text-gray-500" />
+              <app-icon-svg name="lucideBarChart2" size="16" class="text-gray-500" />
               <h3 class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest">
                 {{ 'DASHBOARD.CONTENT_BREAKDOWN' | translate }}
               </h3>
@@ -117,7 +117,7 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
             <div class="space-y-4">
               @for (item of breakdown(); track item.labelKey) {
                 <div class="flex items-center gap-3">
-                  <ng-icon [name]="item.icon" size="15" [class]="item.textColor + ' flex-shrink-0'" />
+                  <app-icon-svg [name]="item.icon" size="15" [class]="item.textColor + ' flex-shrink-0'" />
                   <span class="text-xs text-gray-500 dark:text-gray-400 w-20 truncate flex-shrink-0">
                     {{ item.labelKey | translate }}
                   </span>
@@ -145,7 +145,7 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
               <a [routerLink]="link.route"
                  class="card p-4 flex items-center gap-3 hover:shadow-md hover:border-primary-200 dark:hover:border-primary-700 transition-all group cursor-pointer no-underline">
                 <div [class]="link.iconBg + ' w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0'">
-                  <ng-icon [name]="link.iconName" size="16" [class]="link.iconColor" />
+                  <app-icon-svg [name]="link.iconName" size="16" [class]="link.iconColor" />
                 </div>
                 <span class="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors truncate">
                   {{ link.labelKey | translate }}

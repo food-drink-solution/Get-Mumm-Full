@@ -3,18 +3,18 @@ import {
   ChangeDetectionStrategy, HostListener,
 } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { NgIconComponent } from '@ng-icons/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { AuthService } from '../core/services/auth.service';
 import { LanguageService } from '../core/services/language.service';
+import { IconSvgComponent } from '../shared/components/icon-svg.component';
 
-interface NavItem { iconName: string; labelKey: string; route: string; }
+interface NavItem { iconName: 'lucideLayoutDashboard' | 'lucideUtensils' | 'lucideClipboardList' | 'lucideChefHat' | 'lucideFileText' | 'lucideBell' | 'lucideStar' | 'lucideMailOpen' | 'lucideBarChart2' | 'lucideSettings'; labelKey: string; route: string; }
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, RouterLinkActive, NgIconComponent, TranslatePipe],
+  imports: [RouterLink, RouterLinkActive, IconSvgComponent, TranslatePipe],
   template: `
     @if (open) {
       <div class="fixed inset-0 bg-black/50 z-20 lg:hidden backdrop-blur-sm"
@@ -41,7 +41,7 @@ interface NavItem { iconName: string; labelKey: string; route: string; }
         </div>
         <button class="lg:hidden p-1.5 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                 (click)="close.emit()" [attr.aria-label]="'NAV.CLOSE' | translate">
-          <ng-icon name="lucideX" size="16" />
+          <app-icon-svg name="lucideX" size="16" />
         </button>
       </div>
 
@@ -54,7 +54,7 @@ interface NavItem { iconName: string; labelKey: string; route: string; }
                     hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white
                     transition-colors mb-0.5 group outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
              (click)="close.emit()" [attr.aria-label]="item.labelKey | translate">
-            <ng-icon [name]="item.iconName" size="17" class="flex-shrink-0 opacity-75 group-hover:opacity-100 transition-opacity" />
+            <app-icon-svg [name]="item.iconName" size="17" class="flex-shrink-0 opacity-75 group-hover:opacity-100 transition-opacity" />
             <span class="flex-1 truncate">{{ item.labelKey | translate }}</span>
           </a>
         }
@@ -71,7 +71,7 @@ interface NavItem { iconName: string; labelKey: string; route: string; }
           </div>
           <button (click)="auth.logout()" [attr.aria-label]="'COMMON.SIGN_OUT' | translate"
                   class="flex-shrink-0 p-1.5 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors">
-            <ng-icon name="lucideLogOut" size="15" />
+            <app-icon-svg name="lucideLogOut" size="15" />
           </button>
         </div>
       </div>

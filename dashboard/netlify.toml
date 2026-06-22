@@ -1,0 +1,44 @@
+# Netlify Configuration for Angular Dashboard Deployment
+
+[build]
+  # Base directory - Netlify will be in this directory during build
+  base = "."
+  
+  # Build command - Install dependencies and build Angular production
+  command = "npm install && npm run build"
+  
+  # Publish directory where Angular outputs production build
+  publish = "dist/dashboard"
+  
+  # Node version - Same as frontend (20.19.0)
+  node_version = "20.19.0"
+
+[build.environment]
+  NODE_ENV = "production"
+
+# SPA (Single Page App) routing - redirect all routes to index.html for Angular Router
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Security headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Cache control for static assets
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# No cache for HTML
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

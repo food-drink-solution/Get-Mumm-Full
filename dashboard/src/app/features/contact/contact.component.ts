@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, signal, ChangeDetectionStrategy, DestroyRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgIconComponent } from '@ng-icons/core';
+import { IconSvgComponent } from '../../shared/components/icon-svg.component';
 import { TranslatePipe } from '@ngx-translate/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ApiService } from '../../core/services/api.service';
@@ -13,7 +13,7 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
   selector: 'app-contact',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, NgIconComponent, TranslatePipe, SkeletonComponent, EmptyStateComponent, ErrorStateComponent],
+  imports: [CommonModule, IconSvgComponent, TranslatePipe, SkeletonComponent, EmptyStateComponent, ErrorStateComponent],
   template: `
     <div class="space-y-8">
       <div>
@@ -25,14 +25,14 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
       <section>
         <div class="flex items-center justify-between mb-4">
           <div class="flex items-center gap-2">
-            <ng-icon name="lucideMailOpen" size="18" class="text-primary-500" />
+            <app-icon-svg name="lucideMailOpen" size="18" class="text-primary-500" />
             <h3 class="text-base font-semibold text-gray-800 dark:text-white">{{ 'CONTACT.MESSAGES_TITLE' | translate }}</h3>
             @if (!loadingContacts()) {
               <span class="badge bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 text-xs">{{ contacts().length }}</span>
             }
           </div>
           <button class="btn-secondary gap-2 text-xs py-1.5" (click)="loadContacts()" [attr.aria-label]="'COMMON.REFRESH' | translate">
-            <ng-icon name="lucideRefreshCw" size="13" />
+            <app-icon-svg name="lucideRefreshCw" size="13" />
           </button>
         </div>
 
@@ -75,7 +75,7 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
                       <td class="table-cell">
                         <button class="p-1.5 rounded-lg text-gray-400 hover:text-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/10 transition-colors"
                                 (click)="toggleContact(c.id)" [attr.aria-label]="'CONTACT.VIEW_MESSAGE' | translate">
-                          <ng-icon [name]="expandedContact() === c.id ? 'lucideChevronUp' : 'lucideChevronDown'" size="14" />
+                          <app-icon-svg [name]="expandedContact() === c.id ? 'lucideChevronUp' : 'lucideChevronDown'" size="14" />
                         </button>
                       </td>
                     </tr>
@@ -102,14 +102,14 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
       <section>
         <div class="flex items-center justify-between mb-4">
           <div class="flex items-center gap-2">
-            <ng-icon name="lucideBuilding2" size="18" class="text-orange-500" />
+            <app-icon-svg name="lucideBuilding2" size="18" class="text-orange-500" />
             <h3 class="text-base font-semibold text-gray-800 dark:text-white">{{ 'CONTACT.INQUIRIES_TITLE' | translate }}</h3>
             @if (!loadingInquiries()) {
               <span class="badge bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400 text-xs">{{ inquiries().length }}</span>
             }
           </div>
           <button class="btn-secondary gap-2 text-xs py-1.5" (click)="loadInquiries()" [attr.aria-label]="'COMMON.REFRESH' | translate">
-            <ng-icon name="lucideRefreshCw" size="13" />
+            <app-icon-svg name="lucideRefreshCw" size="13" />
           </button>
         </div>
 

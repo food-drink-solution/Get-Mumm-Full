@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, signal, ChangeDetectionStrategy, DestroyRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgIconComponent } from '@ng-icons/core';
+import { IconSvgComponent } from '../../shared/components/icon-svg.component';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Subject, forkJoin } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
@@ -15,7 +15,7 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
   selector: 'app-menu',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, NgIconComponent, TranslatePipe, SkeletonComponent, EmptyStateComponent, ErrorStateComponent],
+  imports: [CommonModule, IconSvgComponent, TranslatePipe, SkeletonComponent, EmptyStateComponent, ErrorStateComponent],
   template: `
     <div class="space-y-6">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -26,7 +26,7 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
           </p>
         </div>
         <button class="btn-secondary self-start sm:self-auto gap-2" (click)="load()" [attr.aria-label]="'COMMON.REFRESH' | translate">
-          <ng-icon name="lucideRefreshCw" size="14" />
+          <app-icon-svg name="lucideRefreshCw" size="14" />
           {{ 'COMMON.REFRESH' | translate }}
         </button>
       </div>
@@ -35,7 +35,7 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
       <div class="card p-4">
         <div class="flex flex-col sm:flex-row gap-3">
           <div class="relative flex-1">
-            <ng-icon name="lucideSearch" size="15" class="absolute start-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+            <app-icon-svg name="lucideSearch" size="15" class="absolute start-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
             <input type="search" class="input ps-9"
                    [placeholder]="'MENU.SEARCH_PLACEHOLDER' | translate"
                    [value]="search()" (input)="onSearch($any($event.target).value)"
@@ -63,19 +63,19 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
             @if (search()) {
               <span class="badge bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-400 gap-1.5">
                 "{{ search() }}"
-                <button (click)="clearSearch()" class="hover:opacity-70"><ng-icon name="lucideX" size="11" /></button>
+                <button (click)="clearSearch()" class="hover:opacity-70"><app-icon-svg name="lucideX" size="11" /></button>
               </span>
             }
             @if (selectedCategory()) {
               <span class="badge bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 gap-1.5">
                 {{ categoryName() }}
-                <button (click)="selectedCategory.set(''); applyFilter()" class="hover:opacity-70"><ng-icon name="lucideX" size="11" /></button>
+                <button (click)="selectedCategory.set(''); applyFilter()" class="hover:opacity-70"><app-icon-svg name="lucideX" size="11" /></button>
               </span>
             }
             @if (availFilter()) {
               <span class="badge bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 gap-1.5">
                 {{ availFilter() === 'true' ? ('COMMON.AVAILABLE' | translate) : ('COMMON.UNAVAILABLE' | translate) }}
-                <button (click)="availFilter.set(''); applyFilter()" class="hover:opacity-70"><ng-icon name="lucideX" size="11" /></button>
+                <button (click)="availFilter.set(''); applyFilter()" class="hover:opacity-70"><app-icon-svg name="lucideX" size="11" /></button>
               </span>
             }
             <button class="text-xs text-gray-400 hover:text-gray-600 ms-1" (click)="clearAll()">{{ 'COMMON.CLEAR_ALL' | translate }}</button>
@@ -102,13 +102,13 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
                        loading="lazy" decoding="async" />
                 } @else {
                   <div class="w-full h-full flex items-center justify-center">
-                    <ng-icon name="lucideUtensils" size="40" class="text-gray-300 dark:text-gray-600" />
+                    <app-icon-svg name="lucideUtensils" size="40" class="text-gray-300 dark:text-gray-600" />
                   </div>
                 }
                 <div class="absolute top-2 start-2 end-2 flex justify-between items-start gap-1">
                   @if (item.isFeatured) {
                     <span class="badge bg-amber-400 text-white text-xs shadow-sm flex items-center gap-1">
-                      <ng-icon name="lucideStar" size="10" /> {{ 'COMMON.FEATURED' | translate }}
+                      <app-icon-svg name="lucideStar" size="10" /> {{ 'COMMON.FEATURED' | translate }}
                     </span>
                   } @else { <span></span> }
                   <span class="badge text-xs shadow-sm"
@@ -123,7 +123,7 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
                 <div class="flex items-center justify-between mt-2.5">
                   <span class="font-bold text-primary-600 dark:text-primary-400">{{ 'MENU.PRICE' | translate }} {{ item.price | number:'1.0-0' }}</span>
                   <span class="text-xs text-gray-400 flex items-center gap-1">
-                    <ng-icon name="lucideStar" size="11" class="text-amber-400" /> {{ item.rating | number:'1.1-1' }}
+                    <app-icon-svg name="lucideStar" size="11" class="text-amber-400" /> {{ item.rating | number:'1.1-1' }}
                   </span>
                 </div>
                 <div class="mt-2 flex items-center gap-1 flex-wrap">
@@ -133,7 +133,7 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
                   }
                 </div>
                 <p class="text-xs text-gray-400 mt-1.5 flex items-center gap-1.5">
-                  <ng-icon name="lucideChefHat" size="12" class="flex-shrink-0" />
+                  <app-icon-svg name="lucideChefHat" size="12" class="flex-shrink-0" />
                   {{ item.chefName }} · {{ item.prepTimeMinutes }} {{ 'MENU.PREP_TIME' | translate }}
                 </p>
               </div>
