@@ -12,7 +12,7 @@ aiohttp==3.9.1
 requests==2.31.0
 
 # Database Testing
-psycopg2-binary==2.9.9
+psycopg2-binary==2.9.12
 
 # Test Reporting
 allure-pytest==2.13.2
