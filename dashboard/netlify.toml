@@ -1,11 +1,11 @@
 # Netlify Configuration for Angular Dashboard Deployment
 
 [build]
-  # Base directory - Netlify will be in this directory during build
-  base = "."
+  # Base directory - start from dashboard folder
+  base = "dashboard"
   
   # Build command - Install dependencies and build Angular production
-  command = "npm install && npm run build"
+  command = "npm install --force && npm run build"
   
   # Publish directory where Angular outputs production build
   publish = "dist/dashboard"
