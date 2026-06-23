@@ -5,7 +5,7 @@
   base = "dashboard"
   
   # Build command - Install and use ng directly via npm
-  command = "npm install && npm run build"
+  command = "npm install --include=dev && npm run build"
   
   # Publish directory where Angular outputs production build
   publish = "dist/dashboard"
