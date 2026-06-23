@@ -1,9 +1,6 @@
 # Netlify Configuration for Frontend Deployment
 
 [build]
-  # Base directory - Netlify will be in this directory during build
-  base = "frontend"
-  
   # Build command (no need to cd frontend, already there)
   command = "pnpm install && pnpm build"
   

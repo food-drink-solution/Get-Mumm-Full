@@ -1,9 +1,6 @@
 # Netlify Configuration for Angular Dashboard Deployment
 
 [build]
-  # Base directory - start from dashboard folder
-  base = "dashboard"
-  
   # Build command - Install and use ng directly via npm
   command = "npm install --no-package-lock --include=dev && npm run build"
   
