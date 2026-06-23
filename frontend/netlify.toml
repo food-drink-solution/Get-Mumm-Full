@@ -11,11 +11,6 @@
   node_version = "20.19.0"
 
 [build.environment]
-  # API URL must be set in Netlify UI
-  VITE_API_URL = "$VITE_API_URL"
-  # Supabase variables must be set in Netlify UI
-  VITE_SUPABASE_URL = "$VITE_SUPABASE_URL"
-  VITE_SUPABASE_ANON_KEY = "$VITE_SUPABASE_ANON_KEY"
   BASE_PATH = "/"
   # Disable service worker by default to avoid message port errors
   VITE_ENABLE_SW = "false"
