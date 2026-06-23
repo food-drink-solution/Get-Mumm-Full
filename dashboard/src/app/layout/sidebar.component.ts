@@ -8,7 +8,7 @@ import { AuthService } from '../core/services/auth.service';
 import { LanguageService } from '../core/services/language.service';
 import { IconSvgComponent } from '../shared/components/icon-svg.component';
 
-interface NavItem { iconName: 'lucideLayoutDashboard' | 'lucideUtensils' | 'lucideClipboardList' | 'lucideChefHat' | 'lucideFileText' | 'lucideBell' | 'lucideStar' | 'lucideMailOpen' | 'lucideBarChart2' | 'lucideSettings'; labelKey: string; route: string; }
+interface NavItem { iconName: 'lucideLayoutDashboard' | 'lucideUtensils' | 'lucideClipboardList' | 'lucideChefHat' | 'lucideFileText' | 'lucideBell' | 'lucideStar' | 'lucideMailOpen' | 'lucideBarChart2' | 'lucideUserCircle2' | 'lucideSettings'; labelKey: string; route: string; }
 
 @Component({
   selector: 'app-sidebar',
@@ -61,19 +61,27 @@ interface NavItem { iconName: 'lucideLayoutDashboard' | 'lucideUtensils' | 'luci
       </nav>
 
       <div class="p-3 border-t border-gray-100 dark:border-gray-800 flex-shrink-0">
-        <div class="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-gray-50 dark:bg-gray-800">
-          <div class="w-8 h-8 rounded-full bg-primary-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+        <a [routerLink]="'/profile'" (click)="close.emit()"
+           class="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-gray-50 dark:bg-gray-800
+                  hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer group">
+          <div class="w-8 h-8 rounded-full bg-gradient-to-br from-primary-500 to-primary-700
+                      flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
             {{ auth.user()?.username?.charAt(0)?.toUpperCase() }}
           </div>
           <div class="flex-1 min-w-0">
-            <p class="text-sm font-semibold text-gray-800 dark:text-gray-200 truncate leading-tight">{{ auth.user()?.username }}</p>
+            <p class="text-sm font-semibold text-gray-800 dark:text-gray-200 truncate leading-tight group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+              {{ auth.user()?.username }}
+            </p>
             <p class="text-xs text-gray-400 leading-tight capitalize">{{ auth.user()?.role }}</p>
           </div>
-          <button (click)="auth.logout()" [attr.aria-label]="'COMMON.SIGN_OUT' | translate"
-                  class="flex-shrink-0 p-1.5 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors">
-            <app-icon-svg name="lucideLogOut" size="15" />
-          </button>
-        </div>
+          <app-icon-svg name="lucideChevronRight" size="13" class="text-gray-400 flex-shrink-0" />
+        </a>
+        <button (click)="auth.logout()" [attr.aria-label]="'COMMON.SIGN_OUT' | translate"
+                class="mt-1 w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-gray-400
+                       hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors">
+          <app-icon-svg name="lucideLogOut" size="14" />
+          <span>{{ 'COMMON.SIGN_OUT' | translate }}</span>
+        </button>
       </div>
     </aside>
   `
@@ -97,6 +105,7 @@ export class SidebarComponent {
     { iconName: 'lucideStar',            labelKey: 'NAV.TESTIMONIALS',  route: '/testimonials' },
     { iconName: 'lucideMailOpen',        labelKey: 'NAV.CONTACT',       route: '/contact' },
     { iconName: 'lucideBarChart2',       labelKey: 'NAV.ANALYTICS',     route: '/stats' },
+    { iconName: 'lucideUserCircle2',     labelKey: 'NAV.PROFILE',       route: '/profile' },
     { iconName: 'lucideSettings',        labelKey: 'NAV.SETTINGS',      route: '/settings' },
   ];
 }

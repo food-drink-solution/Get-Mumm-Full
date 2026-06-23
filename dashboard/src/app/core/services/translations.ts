@@ -4,7 +4,7 @@ export const EN = {
     DASHBOARD: 'Dashboard', MENU: 'Menu Items', ORDERS: 'Orders',
     CHEFS: 'Chefs', BLOG: 'Blog', SUBSCRIPTIONS: 'Subscriptions',
     TESTIMONIALS: 'Testimonials', CONTACT: 'Contact & Inquiries',
-    ANALYTICS: 'Analytics', SETTINGS: 'Settings',
+    ANALYTICS: 'Analytics', PROFILE: 'Profile', SETTINGS: 'Settings',
     ADMIN_PANEL: 'Admin Panel', CLOSE: 'Close navigation',
   },
   COMMON: {
@@ -102,7 +102,7 @@ export const AR = {
     DASHBOARD: 'لوحة التحكم', MENU: 'قائمة الطعام', ORDERS: 'الطلبات',
     CHEFS: 'الطهاة', BLOG: 'المدونة', SUBSCRIPTIONS: 'الاشتراكات',
     TESTIMONIALS: 'التقييمات', CONTACT: 'التواصل والاستفسارات',
-    ANALYTICS: 'التحليلات', SETTINGS: 'الإعدادات',
+    ANALYTICS: 'التحليلات', PROFILE: 'الملف الشخصي', SETTINGS: 'الإعدادات',
     ADMIN_PANEL: 'لوحة الإدارة', CLOSE: 'إغلاق القائمة',
   },
   COMMON: {
