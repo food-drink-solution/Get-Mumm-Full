@@ -58,7 +58,7 @@ const SVG_ICONS: Record<IconName, string> = {
     span[data-icon] {
       display: inline-flex;
       align-items: center;
-      justify-center;
+      justify-content: center;
     }
     span[data-icon] svg {
       width: 100%;

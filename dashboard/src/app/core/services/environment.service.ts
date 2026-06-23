@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+declare var process: any;
+
 @Injectable({ providedIn: 'root' })
 export class EnvironmentService {
   private apiUrl: string;
