@@ -64,7 +64,7 @@ import { IconSvgComponent } from '../../shared/components/icon-svg.component';
                 <div class="flex items-center gap-3 min-w-0">
                   <div class="w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900/20 flex items-center justify-center
                               text-primary-700 dark:text-primary-400 font-bold text-sm flex-shrink-0">
-                    {{ (t.customerName ?? 'A').charAt(0).toUpperCase() }}
+                    {{ (t.customerName || 'A').charAt(0).toUpperCase() }}
                   </div>
                   <div class="min-w-0">
                     <p class="text-sm font-semibold text-gray-800 dark:text-white truncate">{{ t.customerName }}</p>

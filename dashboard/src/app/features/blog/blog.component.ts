@@ -74,7 +74,7 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
                 </p>
                 <p class="text-xs text-gray-500 dark:text-gray-400 line-clamp-3 flex-1">{{ post.excerpt }}</p>
                 <div class="mt-3 flex items-center justify-between gap-2">
-                  @if (post.tags?.length) {
+                  @if (post.tags.length) {
                     <div class="flex flex-wrap gap-1 min-w-0">
                       @for (tag of post.tags.slice(0, 2); track tag) {
                         <span class="badge bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 text-xs">#{{ tag }}</span>

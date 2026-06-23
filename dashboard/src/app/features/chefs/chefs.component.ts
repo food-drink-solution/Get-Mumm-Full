@@ -73,7 +73,7 @@ import { ErrorStateComponent } from '../../shared/components/error-state.compone
                 </span>
               </div>
               <p class="text-xs text-gray-500 dark:text-gray-400 line-clamp-3 mb-3">{{ chef.bio }}</p>
-              @if (chef.specialties?.length) {
+              @if (chef.specialties.length) {
                 <div class="flex flex-wrap gap-1 justify-center">
                   @for (spec of chef.specialties.slice(0, 3); track spec) {
                     <span class="badge bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 text-xs">{{ spec }}</span>

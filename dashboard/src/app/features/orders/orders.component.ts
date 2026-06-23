@@ -99,7 +99,7 @@ import { OrderDto } from '../../models';
                 <p class="font-medium text-gray-700 dark:text-gray-300">{{ order()!.placedAt | date:'dd MMM yyyy, HH:mm' }}</p>
               </div>
             </div>
-            @if (order()!.items?.length) {
+            @if (order()!.items.length) {
               <div class="border-t border-gray-100 dark:border-gray-800">
                 <table class="w-full text-sm hidden sm:table" role="table">
                   <thead class="bg-gray-50 dark:bg-gray-800">
