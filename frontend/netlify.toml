@@ -2,7 +2,7 @@
 
 [build]
   # Build command (no need to cd frontend, already there)
-  command = "pnpm install && pnpm build"
+  command = "pnpm install --prod=false --no-frozen-lockfile && pnpm build"
   
   # Publish directory where Vite outputs production build
   publish = "dist"
