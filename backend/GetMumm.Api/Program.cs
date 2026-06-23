@@ -14,6 +14,7 @@ builder.Services.AddControllersConfiguration();
 // Add CORS, Swagger, and other configurations
 builder.Services.AddCorsConfiguration(builder.Configuration);
 builder.Services.AddSwaggerConfiguration();
+builder.Services.AddAuthenticationConfiguration(builder.Configuration);
 
 // Add application and infrastructure services
 builder.Services.AddApplicationServices();

@@ -81,14 +81,20 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     this.error.set('');
     this.loading.set(true);
-    setTimeout(() => {
-      const ok = this.auth.login(this.username, this.password);
+    try {
+      const ok = await this.auth.login(this.username, this.password);
       this.loading.set(false);
-      if (ok) this.router.navigate(['/dashboard']);
-      else this.error.set(this.lang.lang() === 'ar' ? 'اسم المستخدم أو كلمة المرور غير صحيحة.' : 'Invalid username or password.');
-    }, 400);
+      if (ok) {
+        this.router.navigate(['/dashboard']);
+      } else {
+        this.error.set(this.lang.lang() === 'ar' ? 'غير مصرح به: هذا الحساب ليس له صلاحيات مدير.' : 'Unauthorized: This account does not have admin privileges.');
+      }
+    } catch (err: any) {
+      this.loading.set(false);
+      this.error.set(err.message || 'Invalid username or password.');
+    }
   }
 }

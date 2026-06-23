@@ -113,21 +113,25 @@ function Router() {
   );
 }
 
+import { AuthProvider } from "@/contexts/AuthContext";
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="system" storageKey="get-mumm:theme">
         <LanguageProvider>
-          <CartProvider>
-            <TooltipProvider>
-              <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-                <ErrorBoundary>
-                  <Router />
-                </ErrorBoundary>
-              </WouterRouter>
-              <Toaster />
-            </TooltipProvider>
-          </CartProvider>
+          <AuthProvider>
+            <CartProvider>
+              <TooltipProvider>
+                <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+                  <ErrorBoundary>
+                    <Router />
+                  </ErrorBoundary>
+                </WouterRouter>
+                <Toaster />
+              </TooltipProvider>
+            </CartProvider>
+          </AuthProvider>
         </LanguageProvider>
       </ThemeProvider>
     </QueryClientProvider>

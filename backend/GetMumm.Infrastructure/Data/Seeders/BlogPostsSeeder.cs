@@ -24,7 +24,7 @@ public class BlogPostsSeeder
     /// </summary>
     public async Task SeedAsync()
     {
-        if (_context.BlogPosts.Any())
+        if (_context.BlogPosts.IgnoreQueryFilters().Any())
         {
             _logger.LogInformation("Blog posts already exist, skipping seed");
             return;

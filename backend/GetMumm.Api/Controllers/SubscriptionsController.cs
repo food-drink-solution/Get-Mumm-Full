@@ -1,5 +1,7 @@
 using GetMumm.Application.DTOs;
 using GetMumm.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GetMumm.Api.Controllers;
 
@@ -7,6 +9,7 @@ namespace GetMumm.Api.Controllers;
 /// API controller for subscription management.
 /// Provides endpoints for CRUD operations on user subscriptions.
 /// </summary>
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class SubscriptionsController : ControllerBase

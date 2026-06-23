@@ -60,8 +60,16 @@ public static class PipelineConfiguration
         app.UseMiddleware<FluentValidationMiddleware>();
         app.UseMiddleware<ExceptionHandlingMiddleware>();
 
-        app.UseHttpsRedirection();
         app.UseCors("AllowFrontend");
+        // NOTE: UseHttpsRedirection is intentionally disabled.
+        // In development the frontend calls http://localhost:54993 directly.
+        // HTTPS redirect issues a 307 on every request — including CORS
+        // preflight OPTIONS — which browsers never follow, breaking CORS.
+        if (!app.Environment.IsDevelopment())
+        {
+            app.UseHttpsRedirection();
+        }
+        app.UseAuthentication();
         app.UseAuthorization();
         app.MapControllers();
 

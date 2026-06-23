@@ -6,6 +6,8 @@ import { useToast } from "@/hooks/use-toast";
 import { ease } from "@/lib/motion";
 import { auth, common } from "@/locales";
 
+import { supabase } from "@/lib/supabase";
+
 interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -23,32 +25,79 @@ export function AuthModal({ isOpen, onClose, defaultTab = "login" }: AuthModalPr
   const [loginForm, setLoginForm]   = useState({ email: "", password: "" });
   const [regForm, setRegForm]       = useState({ name: "", email: "", password: "" });
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!loginForm.email || !loginForm.password) return;
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email: loginForm.email,
+        password: loginForm.password,
+      });
+      if (error) throw error;
       toast({
         title: t("Welcome back!", "أهلاً بعودتك!"),
         description: t("You're signed in to Get Mumm.", "تم تسجيل دخولك إلى ممم."),
       });
       onClose();
-    }, 900);
+    } catch (err: any) {
+      toast({
+        title: t("Error Signing In", "خطأ في تسجيل الدخول"),
+        description: err.message || t("Please check your credentials.", "يرجى التحقق من بيانات الاعتماد الخاصة بك."),
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleRegister = (e: React.FormEvent) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!regForm.name || !regForm.email || !regForm.password) return;
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      const { error } = await supabase.auth.signUp({
+        email: regForm.email,
+        password: regForm.password,
+        options: {
+          data: {
+            full_name: regForm.name,
+          },
+        },
+      });
+      if (error) throw error;
       toast({
         title: tx(auth.accountCreated),
         description: tx(auth.welcomeToMumm),
       });
       onClose();
-    }, 900);
+    } catch (err: any) {
+      toast({
+        title: t("Registration Failed", "فشل التسجيل"),
+        description: err.message || t("Could not create account.", "تعذر إنشاء الحساب."),
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleOAuth = async (provider: "google" | "facebook") => {
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider,
+        options: {
+          redirectTo: window.location.origin,
+        },
+      });
+      if (error) throw error;
+    } catch (err: any) {
+      toast({
+        title: t("OAuth Error", "خطأ في تسجيل الدخول"),
+        description: err.message || t("Social login failed.", "فشل تسجيل الدخول الاجتماعي."),
+        variant: "destructive",
+      });
+    }
   };
 
   const iconSide = (side: "l" | "r") => {
@@ -439,6 +488,7 @@ export function AuthModal({ isOpen, onClose, defaultTab = "login" }: AuthModalPr
                   <div className="grid grid-cols-2 gap-2">
                     <button
                       type="button"
+                      onClick={() => handleOAuth("google")}
                       className="h-10 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition-all active:scale-[0.97]"
                       style={{
                         background: "rgba(255,255,255,0.05)",
@@ -456,6 +506,7 @@ export function AuthModal({ isOpen, onClose, defaultTab = "login" }: AuthModalPr
                     </button>
                     <button
                       type="button"
+                      onClick={() => handleOAuth("facebook")}
                       className="h-10 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition-all active:scale-[0.97]"
                       style={{
                         background: "rgba(255,255,255,0.05)",

@@ -2,8 +2,10 @@ namespace GetMumm.Api.Controllers;
 
 using GetMumm.Application.DTOs;
 using GetMumm.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+[Authorize]
 [ApiController]
 [Route("api/orders")]
 public class OrdersController : ControllerBase

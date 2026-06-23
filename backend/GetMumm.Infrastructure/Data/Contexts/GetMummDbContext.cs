@@ -173,10 +173,9 @@ public class GetMummDbContext : DbContext
             .HasIndex(c => c.CreatedAt)
             .HasDatabaseName("idx_contacts_created_at");
 
-        // Store BlogPost.PublishStatus as text string to match the DB column type
+        // Store BlogPost.PublishStatus as integer
         modelBuilder.Entity<BlogPost>()
-            .Property(b => b.PublishStatus)
-            .HasConversion<string>();
+            .Property(b => b.PublishStatus);
 
         // Index on BlogPost.PublishStatus for publish status filtering
         modelBuilder.Entity<BlogPost>()
@@ -189,14 +188,12 @@ public class GetMummDbContext : DbContext
             .IsUnique()
             .HasDatabaseName("idx_blog_posts_slug_unique");
 
-        // Store Subscription enums as text strings to match the existing DB schema
+        // Store Subscription enums as integers
         modelBuilder.Entity<Subscription>()
-            .Property(s => s.Type)
-            .HasConversion<string>();
+            .Property(s => s.Type);
 
         modelBuilder.Entity<Subscription>()
-            .Property(s => s.Status)
-            .HasConversion<string>();
+            .Property(s => s.Status);
 
         // Index on Subscription.UserId for user lookups
         modelBuilder.Entity<Subscription>()
