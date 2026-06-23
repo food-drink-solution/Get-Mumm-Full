@@ -4,9 +4,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 4200 --host 0.0.0.0 --disable-host-check",
-    "build": "npx ng build --configuration production",
-    "build:dev": "npx ng build --configuration development",
-    "watch": "npx ng build --watch --configuration development"
+    "build": "ng build --configuration production",
+    "build:dev": "ng build --configuration development",
+    "watch": "ng build --watch --configuration development"
   },
   "private": true,
   "dependencies": {
