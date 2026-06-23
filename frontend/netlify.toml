@@ -11,8 +11,6 @@
   node_version = "20.19.0"
 
 [build.environment]
-  # Environment variables for build time
-  NODE_ENV = "production"
   # API URL must be set in Netlify UI
   VITE_API_URL = "$VITE_API_URL"
   # Supabase variables must be set in Netlify UI
