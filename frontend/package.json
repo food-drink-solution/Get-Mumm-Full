@@ -40,7 +40,7 @@
     "@radix-ui/react-tooltip": "^1.2.0",
     "@tailwindcss/typography": "^0.5.15",
     "@tailwindcss/vite": "*",
-    "@tanstack/eslint-plugin-query": "^5.101.0",
+    "@tanstack/eslint-plugin-query": "^5.101.2",
     "@tanstack/react-query": "*",
     "@types/node": "*",
     "@types/react": "*",
