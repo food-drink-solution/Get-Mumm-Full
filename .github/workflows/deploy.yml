@@ -87,7 +87,7 @@ jobs:
     
     steps:
       - name: Download frontend dist artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: frontend-dist
           path: ./frontend/dist
@@ -114,7 +114,7 @@ jobs:
     
     steps:
       - name: Download backend publish artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: backend-publish
           path: ./backend/publish
