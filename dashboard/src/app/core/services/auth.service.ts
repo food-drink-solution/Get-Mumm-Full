@@ -8,8 +8,11 @@ const STORAGE_KEY = 'gm_admin_user';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private supabase: SupabaseClient;
+  private supabase: SupabaseClient | null = null;
   private _user = signal<AuthUser | null>(this.loadUser());
+
+  private readonly configurationError =
+    new Error('Authentication is unavailable because Supabase is not configured.');
 
   readonly user = this._user.asReadonly();
   readonly isAuthenticated = computed(() => this._user() !== null);
@@ -18,10 +21,14 @@ export class AuthService {
     private router: Router,
     private env: EnvironmentService
   ) {
-    this.supabase = createClient(
-      this.env.getSupabaseUrl(),
-      this.env.getSupabaseKey()
-    );
+    const supabaseUrl = this.env.getSupabaseUrl().trim();
+    const supabaseKey = this.env.getSupabaseKey().trim();
+
+    if (!supabaseUrl || !supabaseKey) {
+      return;
+    }
+
+    this.supabase = createClient(supabaseUrl, supabaseKey);
 
     // Sync state if session changes
     this.supabase.auth.onAuthStateChange(async (event, session) => {
@@ -52,6 +59,10 @@ export class AuthService {
   }
 
   async login(email: string, password: string): Promise<boolean> {
+    if (!this.supabase) {
+      throw this.configurationError;
+    }
+
     const { data, error } = await this.supabase.auth.signInWithPassword({
       email,
       password
@@ -68,7 +79,9 @@ export class AuthService {
   }
 
   async logout(): Promise<void> {
-    await this.supabase.auth.signOut();
+    if (this.supabase) {
+      await this.supabase.auth.signOut();
+    }
     this._user.set(null);
     localStorage.removeItem(STORAGE_KEY);
     this.router.navigate(['/login']);
